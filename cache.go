@@ -23,6 +23,8 @@ type Interface[K comparable, V any] interface {
 	Keys() []K
 	// Delete deletes the item with provided key from the cache.
 	Delete(key K)
+	// Len returns the number of items in the cache.
+	Len() int
 }
 
 var (
@@ -240,6 +242,13 @@ func (c *Cache[K, V]) Contains(key K) bool {
 	defer c.mu.Unlock()
 	_, ok := c.cache.Get(key)
 	return ok
+}
+
+// Len returns the number of items in the cache
+func (c *Cache[K, V]) Len() int {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.cache.Len()
 }
 
 // NumberCache is a in-memory cache which is able to store only Number constraint.

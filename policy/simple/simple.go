@@ -22,6 +22,11 @@ func NewCache[K comparable, V any]() *Cache[K, V] {
 	}
 }
 
+// Len returns the number of items in the cache.
+func (c *Cache[K, V]) Len() int {
+	return len(c.items)
+}
+
 // Set sets any item to the cache. replacing any existing item.
 // The default item never expires.
 func (c *Cache[K, V]) Set(k K, v V) {

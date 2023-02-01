@@ -96,6 +96,18 @@ func ExampleCache_Keys() {
 	// [a b c]
 }
 
+func ExampleCache_Len() {
+	c := cache.New(cache.AsLFU[string, int]())
+	fmt.Println(c.Len())
+	c.Set("one", 1)
+	c.Set("two", 1)
+	c.Set("two", 2)
+	fmt.Println(c.Len())
+	// Output:
+	// 0
+	// 2
+}
+
 func ExampleCache_Contains() {
 	c := cache.New(cache.AsLRU[string, int]())
 	c.Set("a", 1)
